@@ -12,7 +12,6 @@ from environs import Env
 env = Env()
 env.read_env()
 
-INTERVAL_SECS = 1
 ZIP_ARGS = ['zip', '-r', '-', '.']
 DEFAULT_CHUNK_SIZE = 500000
 DEBUG, INFO, WARNING, ERROR, CRITICAL = \
