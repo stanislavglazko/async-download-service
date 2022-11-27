@@ -7,15 +7,21 @@ import datetime
 import functools
 import logging
 import os
+from environs import Env
+
+
+env = Env()
+env.read_env()
 
 INTERVAL_SECS = 1
 ZIP_ARGS = ['zip', '-r', '-', '.']
-DEFAULT_DIR_WITH_PHOTOS = 'test_photos'
 DEFAULT_CHUNK_SIZE = 500000
 DEBUG, INFO, WARNING, ERROR, CRITICAL = \
     'debug', 'info', 'error', 'warning', 'critical'
-DEFAULT_LOGGING_LEVEL = INFO
-DEFAULT_RESPONSE_DELAY = 0
+
+DEFAULT_DIR_WITH_PHOTOS = env.str('DEFAULT_DIR_WITH_PHOTOS', 'test_photos')
+DEFAULT_LOGGING_LEVEL = env.str('DEFAULT_LOGGING_LEVEL', INFO)
+DEFAULT_RESPONSE_DELAY = env.int('DEFAULT_RESPONSE_DELAY', 0)
 
 
 def get_parser_args():
