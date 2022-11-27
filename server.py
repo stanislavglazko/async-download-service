@@ -3,7 +3,6 @@ from aiohttp import web
 import aiofiles
 import argparse
 import asyncio
-import datetime
 import functools
 import logging
 import os
