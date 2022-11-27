@@ -45,6 +45,7 @@ python server.py
 ## Как запустить с помощью Докера
 
 ```bash
+docker-compose build
 docker-compose up -d
 ```
 
