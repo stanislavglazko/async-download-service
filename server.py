@@ -9,17 +9,10 @@ import os
 from environs import Env
 
 
-env = Env()
-env.read_env()
-
 ZIP_ARGS = ['zip', '-r', '-', '.']
 DEFAULT_CHUNK_SIZE = 500000
 DEBUG, INFO, WARNING, ERROR, CRITICAL = \
     'debug', 'info', 'error', 'warning', 'critical'
-
-DEFAULT_DIR_WITH_PHOTOS = env.str('DEFAULT_DIR_WITH_PHOTOS', 'test_photos')
-DEFAULT_LOGGING_LEVEL = env.str('DEFAULT_LOGGING_LEVEL', INFO)
-DEFAULT_RESPONSE_DELAY = env.int('DEFAULT_RESPONSE_DELAY', 0)
 
 
 def get_parser_args():
@@ -84,6 +77,11 @@ async def handle_index_page(request):
 
 
 if __name__ == '__main__':
+    env = Env()
+    env.read_env()
+    DEFAULT_DIR_WITH_PHOTOS = env.str('DEFAULT_DIR_WITH_PHOTOS', 'test_photos')
+    DEFAULT_LOGGING_LEVEL = env.str('DEFAULT_LOGGING_LEVEL', INFO)
+    DEFAULT_RESPONSE_DELAY = env.int('DEFAULT_RESPONSE_DELAY', 0)
     parser_args = get_parser_args()
     set_logging_level(parser_args.logging_level)
     app = web.Application()
