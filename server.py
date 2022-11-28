@@ -50,10 +50,14 @@ async def download_archive(request, response_delay, folder_with_photos):
             await asyncio.sleep(response_delay)
     except asyncio.CancelledError:
         logging.error('Download was interrupted')
-        process.kill()
+        raise
+    except Exception as exc:
+        logging.error(str(exc))
         raise
     finally:
-        response.force_close()
+        if process.returncode is None:
+            process.kill()
+            await process.communicate()
 
 
 async def handle_index_page(request):
