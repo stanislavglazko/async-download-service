@@ -23,7 +23,7 @@ DEFAULT_RESPONSE_DELAY = env.int('DEFAULT_RESPONSE_DELAY', 0)
 
 
 def get_parser_args():
-    parser = argparse.ArgumentParser(description='Download photos archive')
+    parser = argparse.ArgumentParser(description='Download photo archive')
     parser.add_argument('-rd', '--response_delay', type=int, default=DEFAULT_RESPONSE_DELAY)
     parser.add_argument('-ll', '--logging_level', type=str, default=DEFAULT_LOGGING_LEVEL)
     parser.add_argument('-f', '--folder_with_photos', type=str, default=DEFAULT_DIR_WITH_PHOTOS)
