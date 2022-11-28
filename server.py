@@ -37,7 +37,7 @@ def set_logging_level(level_logging):
 
 
 async def download_archive(request, response_delay, folder_with_photos):
-    archive_hash = request.match_info.get('archive_hash')
+    archive_hash = request.match_info['archive_hash']
     path_to_photos = os.path.join(folder_with_photos, archive_hash)
 
     if not os.path.exists(path_to_photos):
