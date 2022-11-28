@@ -11,8 +11,6 @@ from environs import Env
 
 ZIP_ARGS = ['zip', '-r', '-', '.']
 DEFAULT_CHUNK_SIZE = 500000
-DEBUG, INFO, WARNING, ERROR, CRITICAL = \
-    'debug', 'info', 'error', 'warning', 'critical'
 
 
 def get_parser_args():
@@ -22,18 +20,6 @@ def get_parser_args():
     parser.add_argument('-f', '--folder_with_photos', type=str, default=DEFAULT_DIR_WITH_PHOTOS)
 
     return parser.parse_args()
-
-
-def set_logging_level(level_logging):
-    logging_levels_mapping = {
-        DEBUG: logging.DEBUG,
-        WARNING: logging.WARNING,
-        ERROR: logging.ERROR,
-        CRITICAL: logging.CRITICAL,
-        INFO: logging.INFO,
-    }
-
-    return logging.basicConfig(level = logging_levels_mapping[level_logging])
 
 
 async def download_archive(request, response_delay, folder_with_photos):
@@ -81,11 +67,10 @@ if __name__ == '__main__':
     env.read_env()
     DEFAULT_DIR_WITH_PHOTOS = env.str('DEFAULT_DIR_WITH_PHOTOS', 'test_photos')
     DEFAULT_RESPONSE_DELAY = env.int('DEFAULT_RESPONSE_DELAY', 0)
-    DEFAULT_LOGGING_LEVEL = env.str('DEFAULT_LOGGING_LEVEL', INFO)
+    DEFAULT_LOGGING_LEVEL = env.str('DEFAULT_LOGGING_LEVEL', 'INFO')
     parser_args = get_parser_args()
-    set_logging_level(parser_args.logging_level)
+    logging.basicConfig(level = parser_args.logging_level)
     app = web.Application()
-
     app.add_routes([
         web.get('/', handle_index_page),
         web.get('/archive/{archive_hash}/', functools.partial(
